@@ -1,1 +1,38 @@
-<h1>salut</h1>
+{% extends "base.html.twig" %}
+{% block title %}MA BIBLIOTHEQUE{% endblock %}
+
+{% block body %}
+<h1>Livre disponible :</h1>
+    {% if livres %}
+    <table class="table table-striped">
+    <thead>
+        <tr> 
+            <th>Titre</th>
+            <th>Annee publication</th>
+            <th>Nombre de page</th>
+            <th>Genre du livre</th>
+            <th>Auteur du livre</th>
+        </tr>
+    </thead>
+    <tbody> 
+        {% for livre in livres %}
+            <tr>
+                <td> {{livre}} </td>
+                {# <td>
+                   <a href="/livre/1" class="btn btn-dark">afficher</a>
+                </td> #}
+
+
+            </tr>
+        {% endfor %}
+    </tbody>
+	</table>
+
+
+    {% else %}
+        <p>vous n'avez pas de livre enregistrer.</p>
+    {% endif %}
+    
+
+
+{% endblock %}
