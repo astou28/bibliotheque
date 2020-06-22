@@ -1,5 +1,6 @@
 {
   "devDependencies": {
-    "bootstrap": "^4.5.0"
+    "bootstrap": "^4.5.0",
+    "less": "^3.11.3"
   }
 }

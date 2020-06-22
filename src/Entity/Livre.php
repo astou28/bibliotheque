@@ -31,9 +31,9 @@ class Livre
     /**
      * @var string
      *
-     * @ORM\Column(name="année", type="string", length=255, nullable=false)
+     * @ORM\Column(name="annee", type="string", length=255, nullable=false)
      */
-    private $ann�e;
+    private $annee;
 
     /**
      * @var string
@@ -62,6 +62,21 @@ class Livre
      */
     private $idAuteur;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $editeur;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $collection;
+
     public function getIdLivre(): ?int
     {
         return $this->idLivre;
@@ -79,14 +94,14 @@ class Livre
         return $this;
     }
 
-    public function getAnn�e(): ?string
+    public function getAnnee(): ?string
     {
-        return $this->ann�e;
+        return $this->annee;
     }
 
-    public function setAnn�e(string $ann�e): self
+    public function setAnnee(string $annee): self
     {
-        $this->ann�e = $ann�e;
+        $this->annee = $annee;
 
         return $this;
     }
@@ -123,6 +138,47 @@ class Livre
     public function setIdAuteur(?Personne $idAuteur): self
     {
         $this->idAuteur = $idAuteur;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->titre;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getEditeur(): ?string
+    {
+        return $this->editeur;
+    }
+
+    public function setEditeur(string $editeur): self
+    {
+        $this->editeur = $editeur;
+
+        return $this;
+    }
+
+    public function getCollection(): ?string
+    {
+        return $this->collection;
+    }
+
+    public function setCollection(string $collection): self
+    {
+        $this->collection = $collection;
 
         return $this;
     }

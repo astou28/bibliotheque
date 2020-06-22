@@ -1,54 +1,64 @@
 <?php
 
 namespace App\Controller;
-
-use App\Entity\Genre;
-use App\Entity\Personne;
 use App\Entity\Livre;
+use App\Form\MonFormulaireType;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Symfony\Component\Form\Extension\Core\Type\{TextType, ButtonType, EmailType, HiddenType, PasswordType, TextareaType, SubmitType, NumberType, DateType, MoneyType, BirthdayType};
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
+
 
 class AfficheController extends AbstractController
 {
-
+    /**
+     * @Route("/",name="home")
+     */
     public function index(): Response
     {
-        $livres=['Une si long lettre','Une vie de boy','Batouala','L\'enfant noir'];
+
+        $livres= $this->getDoctrine()->getRepository(Livre::class)->findAll();
         return $this->render('affiche/index.html.twig', ['livres' => $livres]);
 
         
     }
     /**
-     * @Route("/affiche/ajouter,name ="ajouter")
+     * @Route("/affiche/nouveau", name="livre_new", methods={"GET","POST"})
      */
-    public function ajouter()
+    public function nouveau(Request $request): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $livre = new Livre();
-        $personne = new Personne();
-        $genre = new Genre();
+        $form = $this->createForm(MonFormulaireType::class, $livre);
+        $form->handleRequest($request);
 
-        $livre -> setTitre('l\'Etranger');
-        $livre->setAnn�e(1942);
-        $livre->setNbrPage(127);
-        $livre->setIdGenre(null);
-        $livre->setIdAuteur(null);
-        $personne->setPrenomNom('Albert Camus');
-        $genre->setNomGenre('Roman');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($livre);
+            $entityManager->flush();
 
-        $entityManager->persist($livre,$personne,$genre);
-        $entityManager->flush();
-
-        return new Response('enregitrement des livre sur la bd'.$livre->getIdLivre());
-
-
-
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('affiche/nouveau.html.twig', [
+            'livre' => $livre,
+            'form' => $form->createView(),
+        ]);
 
     }
-}
+
+    /**
+     * @Route("/affiche/{idLivre}",name ="affichage")
+     */
+    public function affichage($idLivre)
+    {
+        $livre = $this->getDoctrine()->getRepository(Livre::class)->find($idLivre);
+        return $this->render('affiche/affichage.html.twig', ['livre' => $livre]);
+    }
+
+   }
 
 

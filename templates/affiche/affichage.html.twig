@@ -1,0 +1,76 @@
+{% extends "base.html.twig" %}
+{% block title %}MA BIBLIOTHEQUE
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="/appliBiblio/public/style.css"/>
+{% endblock %}
+
+{% endblock %}
+
+{% block body %}
+<a href="/">retour</a>
+
+<div class="row">
+    <div class="col-lg-2">
+        <img src="{{livre.image}}" alt="une si long lettre">
+    </div>
+    <div class="col-lg-8 offset-2">
+<form>
+	<div class="row">
+		<label for="formGroupExampleInput">Titre :</label>
+		<input type="text" class="form-control" id="formGroupExampleInput" value="{{ livre.titre}}">
+	</div>
+	<div class="row">
+        <div class="col-lg-6">		
+        <label for="formGroupExampleInput2">Auteur :</label>
+		<input type="text" class="form-control" id="formGroupExampleInput2" value="{{ livre.idAuteur}}">
+        </div>
+        <div class="col-lg-6">		
+        <label for="formGroupExampleInput2">Editeur :</label>
+		<input type="text" class="form-control" id="formGroupExampleInput2" value="{{ livre.editeur }}">
+        </div>
+    </div>
+	<div class="row">
+        <div class="col-lg-6">		
+        <label for="formGroupExampleInput2">Annee :</label>
+		<input type="text" class="form-control" id="formGroupExampleInput2" value="{{ livre.annee}}">
+        </div>
+        <div class="col-lg-6">
+		<label for="formGroupExampleInput2">Page :</label>
+
+		<input type="text" class="form-control" id="formGroupExampleInput2" value="{{ livre.nbrPage}}">
+        </div>
+
+	</div>
+
+	<div class="row">
+        <div class="col-lg-6">		
+        <label for="formGroupExampleInput2">Genre :</label>
+		<input type="text" class="form-control" id="formGroupExampleInput2" value="{{ livre.idGenre}}">
+        </div>
+        <div class="col-lg-6">		
+        <label for="formGroupExampleInput2">Collection :</label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" value="{{ livre.collection }}">
+        </div>
+	</div>
+<div class="form-check">
+	<input class="form-check-input position-static" type="checkbox" id="blankCheckbox" aria-label="...">
+<span>preté</span>
+</div>
+
+
+
+
+</form>
+
+    </div>
+    </div>
+
+
+</div>
+
+
+{% block javascript %}
+	<script src="/appliBiblio/public/script.js"></script>
+{% endblock %}
+
+{% endblock %}
